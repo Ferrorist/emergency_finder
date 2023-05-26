@@ -69,4 +69,9 @@ class details extends StatelessWidget {
 
 void launchPhoneApp(String phoneNumber) async {
   final url = 'tel:$phoneNumber';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
