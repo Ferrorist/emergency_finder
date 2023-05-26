@@ -27,6 +27,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -118,6 +119,18 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
             ),
       floatingActionButtonLocation:
           !Platform.isAndroid ? FloatingActionButtonLocation.endFloat : null,
+    );
+  }
+}
+
+class Profile extends StatelessWidget {
+  const Profile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Text('details'),
     );
   }
 }
