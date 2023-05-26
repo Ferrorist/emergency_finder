@@ -37,3 +37,9 @@ class App extends StatelessWidget {
     );
   }
 }
+
+      // initialRoute: '/',
+      // routes:  {
+      //   '/': (context) => FindEmergency(),
+      //   '/details': (context) => details(),
+      // },
