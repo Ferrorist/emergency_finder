@@ -12,13 +12,7 @@ class FindEmergency extends StatefulWidget {
 class _FindEmergencyState extends State<FindEmergency> {
   final _formKey = GlobalKey<FormState>();
 
-  final Future<bool> isdetermined = GPSService.determinePermission();
-
-  @override
-  void initState() {
-    super.initState();
-    GPSService.requestPermission();
-  }
+  late Future<bool> isdetermined = GPSService.checkPermission();
 
   @override
   Widget build(BuildContext context) {
