@@ -5,45 +5,50 @@ import '../services/gps_service.dart';
 import '../widgets/navermap_widget.dart';
 
 class FullscreenMap extends StatelessWidget {
-  FullscreenMap({super.key});
+  const FullscreenMap({super.key});
 
-  final Future<Position> user_position = GPSService.getPosition();
-  Future<bool> isdetermined = GPSService.determinePermission();
+  // final Future<Position> user_position = GPSService.getPosition();
+  // Future<bool> isdetermined = GPSService.determinePermission();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-        future: isdetermined,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data == true) {
-              return MyNaverMap(user_position: user_position);
-            } else {
-              return const Center(
-                child: Text(
-                  "Permission is denied",
-                ),
-              );
-            }
-          } else {
-            return const Center(
-              child: Text(
-                "Loading...",
-              ),
-            );
-          }
-        },
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          "개발 중...",
+        ),
       ),
-      floatingActionButton: !Platform.isAndroid
-          ? FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back),
-            )
-          : null,
-      floatingActionButtonLocation:
-          !Platform.isAndroid ? FloatingActionButtonLocation.endFloat : null,
+      // body: FutureBuilder(
+      //   future: isdetermined,
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       if (snapshot.data == true) {
+      //         return MyNaverMap(userPosition: user_position);
+      //       } else {
+      //         return const Center(
+      //           child: Text(
+      //             "Permission is denied",
+      //           ),
+      //         );
+      //       }
+      //     } else {
+      //       return const Center(
+      //         child: Text(
+      //           "Loading...",
+      //         ),
+      //       );
+      //     }
+      //   },
+      // ),
+      // floatingActionButton: !Platform.isAndroid
+      //     ? FloatingActionButton(
+      //         onPressed: () {
+      //           Navigator.pop(context);
+      //         },
+      //         child: const Icon(Icons.arrow_back),
+      //       )
+      //     : null,
+      // floatingActionButtonLocation:
+      //     !Platform.isAndroid ? FloatingActionButtonLocation.endFloat : null,
     );
   }
 }

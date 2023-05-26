@@ -80,7 +80,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => FullscreenMap()),
+                    builder: ((context) => const FullscreenMap()),
                   ),
                 );
               },
@@ -107,7 +107,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => FullscreenMap()),
+                          builder: ((context) => const FullscreenMap()),
                         ),
                       );
                     },

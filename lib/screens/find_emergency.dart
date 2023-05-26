@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
-
 import '../screens/search_detail.dart';
+import '../services/gps_service.dart';
 
-class FindEmergency extends StatelessWidget {
-  FindEmergency({super.key});
+class FindEmergency extends StatefulWidget {
+  const FindEmergency({super.key});
+
+  @override
+  State<FindEmergency> createState() => _FindEmergencyState();
+}
+
+class _FindEmergencyState extends State<FindEmergency> {
   final _formKey = GlobalKey<FormState>();
+
+  final Future<bool> isdetermined = GPSService.determinePermission();
+
+  @override
+  void initState() {
+    super.initState();
+    GPSService.requestPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 10,
+          horizontal: 20,
         ),
         child: Column(
           children: [
             Flexible(
-              flex: 1,
+              flex: 2,
               child: Center(
                 child: Text(
                   "병원 탐색",
@@ -29,7 +43,7 @@ class FindEmergency extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 2,
+              flex: 3,
               child: Column(
                 children: [
                   Form(
@@ -68,6 +82,31 @@ class FindEmergency extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            Flexible(
+              flex: 2,
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                FutureBuilder(
+                  future: isdetermined,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data == false) {
+                        return const Text(
+                          "위치 정보가 필요한 서비스입니다.\n위치 권한을 허용해주세요.",
+                          style: TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 15,
+                            height: 2.3,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    }
+                    return const Text("");
+                  },
+                ),
+              ]),
             ),
           ],
         ),

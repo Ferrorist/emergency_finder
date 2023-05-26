@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          FindEmergency(),
+                          const FindEmergency(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         var begin = const Offset(1, 0);
