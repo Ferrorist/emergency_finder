@@ -50,6 +50,7 @@ class _FindEmergencyState extends State<FindEmergency> {
                           return null;
                         }
                       },
+                      // 제출할 경우 발생하는 이벤트
                       onFieldSubmitted: (value) {
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(
@@ -77,6 +78,7 @@ class _FindEmergencyState extends State<FindEmergency> {
                 ],
               ),
             ),
+            // 위치 정보 권한이 없을 경우 텍스트 보여주기
             Flexible(
               flex: 2,
               child:

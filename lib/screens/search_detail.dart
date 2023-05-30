@@ -27,7 +27,6 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -81,7 +80,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => const FullscreenMap()),
+                    builder: ((context) => FullscreenMap()),
                   ),
                 );
               },
@@ -108,7 +107,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => const FullscreenMap()),
+                          builder: ((context) => FullscreenMap()),
                         ),
                       );
                     },
@@ -130,7 +129,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text('details'),
+      body: const Text('details'),
     );
   }
 }
