@@ -3,9 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MyGoogleMap extends StatefulWidget {
-  const MyGoogleMap({super.key, required this.userPosition});
+  const MyGoogleMap({super.key, required this.position});
 
-  final Future<Position> userPosition;
+  final Future<Position> position;
 
   @override
   State<MyGoogleMap> createState() => _MyGoogleMapState();
@@ -18,7 +18,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.userPosition,
+      future: widget.position,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return GoogleMap(

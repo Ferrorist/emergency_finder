@@ -19,7 +19,7 @@ class GoogleMapScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          return MyGoogleMap(userPosition: user_position);
+          return MyGoogleMap(position: user_position);
         }
       },
     ));

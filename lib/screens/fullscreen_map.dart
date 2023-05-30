@@ -17,7 +17,7 @@ class FullscreenMap extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == true) {
-              return MyGoogleMap(userPosition: user_position);
+              return MyGoogleMap(position: user_position);
             } else {
               return const Center(
                 child: Text(
