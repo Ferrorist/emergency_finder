@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../screens/search_detail.dart';
 import '../services/gps_service.dart';
+
 
 class FindEmergency extends StatefulWidget {
   const FindEmergency({super.key});
@@ -10,6 +13,79 @@ class FindEmergency extends StatefulWidget {
 }
 
 class _FindEmergencyState extends State<FindEmergency> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final stt.SpeechToText _speechToText = stt.SpeechToText();
+  bool _isListening = false;
+  String _transcription = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeSpeechToText();
+  }
+
+  /// This has to happen only once per app
+  void _initializeSpeechToText() async {
+    bool available = await _speechToText.initialize();
+    if (mounted) {
+      setState(() {
+        _isListening = available;
+      });
+    }
+  }
+
+  /// Each time to start a speech recognition session
+  void _startListening() {
+    _speechToText.listen(
+      onResult: (result) {
+        setState(() {
+          _transcription = result.recognizedWords;
+          _textEditingController.text = _transcription;
+        });
+      },
+    );
+    setState(() {
+      _isListening = true;
+    });
+  }
+
+
+  void _stopListening() {
+    _speechToText.stop();
+    setState(() {
+      _isListening = false;
+    });
+  }
+
+  void _showInputDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('음성 입력'),
+          content: TextField(
+            controller: _textEditingController,
+            onChanged: (value) {
+              setState(() {
+                _transcription = value;
+              });
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('취소'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
   final _formKey = GlobalKey<FormState>();
 
   late Future<bool> isdetermined = GPSService.checkPermission();
@@ -43,6 +119,7 @@ class _FindEmergencyState extends State<FindEmergency> {
                   Form(
                     key: _formKey,
                     child: TextFormField(
+                      controller: _textEditingController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return '증상을 입력해주세요.';
@@ -52,7 +129,7 @@ class _FindEmergencyState extends State<FindEmergency> {
                       },
                       // 제출할 경우 발생하는 이벤트
                       onFieldSubmitted: (value) {
-                        if (_formKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate() ) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -63,6 +140,7 @@ class _FindEmergencyState extends State<FindEmergency> {
                           );
                         }
                       },
+
                       // 제출 이벤트 감지
                       autofocus: true,
                       decoration: InputDecoration(
@@ -75,6 +153,22 @@ class _FindEmergencyState extends State<FindEmergency> {
                       ),
                     ),
                   ),
+                  Row(
+                    children: [
+                      SizedBox(height: 20.0),
+                      IconButton(
+                        icon: Icon(_isListening ? Icons.mic : Icons.mic_none),
+                        onPressed: () {
+                          if (_isListening) {
+                            _stopListening();
+                          } else {
+                            _startListening();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 20.0),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -105,20 +199,12 @@ class _FindEmergencyState extends State<FindEmergency> {
               ]),
             ),
           ],
+          )
+
         ),
-      ),
-      // 안드로이드 기기가 아닌 경우 뒤로가기 버튼 활성화
-      // floatingActionButton: !Platform.isAndroid
-      //     ? FloatingActionButton(
-      //         heroTag: 'result',
-      //         onPressed: () {
-      //           Navigator.pop(context);
-      //         },
-      //         child: const Icon(Icons.arrow_back),
-      //       )
-      //     : null,
-      // floatingActionButtonLocation:
-      //     !Platform.isAndroid ? FloatingActionButtonLocation.endFloat : null,
-    );
+
+      );
+
   }
 }
+
