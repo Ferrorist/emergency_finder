@@ -14,7 +14,6 @@ class HospitalCard extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.symmetric(
-            horizontal: 5,
             vertical: 10,
           ),
           padding: const EdgeInsets.symmetric(

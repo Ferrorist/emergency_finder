@@ -54,7 +54,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
-          vertical: 30,
+          vertical: 40,
         ),
         child: Column(
           children: [
