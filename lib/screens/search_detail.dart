@@ -16,18 +16,23 @@ class SearchDetailScreen extends StatefulWidget {
 class _SearchDetailScreenState extends State<SearchDetailScreen> {
   List<HospitalModel> HospitalInstances = [];
   final TextEditingController _textEditingController = TextEditingController();
-  final HospitalModel _temphospitalModel =
-      HospitalModel(name: "이수성 치과", address: "대구", department: ["치과"]);
+  final HospitalModel _temphospitalModel1 = HospitalModel(
+      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 100);
+  final HospitalModel _temphospitalModel2 = HospitalModel(
+      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 29);
+  final HospitalModel _temphospitalModel3 = HospitalModel(
+      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 48);
   @override
   void initState() {
     super.initState();
     _textEditingController.text = widget.inputText;
+    HospitalInstances.add(_temphospitalModel1);
+    HospitalInstances.add(_temphospitalModel2);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -64,8 +69,9 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
             Container(
               child: Column(
                 children: [
-                  HospitalCard(hospital: _temphospitalModel),
-                  HospitalCard(hospital: _temphospitalModel),
+                  HospitalCard(hospital: _temphospitalModel1),
+                  HospitalCard(hospital: _temphospitalModel2),
+                  HospitalCard(hospital: _temphospitalModel3),
                 ],
               ),
             ),
@@ -81,7 +87,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => const FullscreenMap()),
+                    builder: ((context) => FullscreenMap()),
                   ),
                 );
               },
@@ -108,7 +114,7 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => const FullscreenMap()),
+                          builder: ((context) => FullscreenMap()),
                         ),
                       );
                     },
@@ -130,7 +136,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text('details'),
+      body: const Text('details'),
     );
   }
 }
