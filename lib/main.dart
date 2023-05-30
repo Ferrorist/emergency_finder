@@ -19,10 +19,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/details': (context) => const details(),
-      },
+      // initialRoute: '/',
+      // routes: {
+      //   '/details': (context) => const details(),
+      // },
       home: Scaffold(
         body: FutureBuilder(
           future: GPSService.checkPermission(),
