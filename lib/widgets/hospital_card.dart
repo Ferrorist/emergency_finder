@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'congestion_circle.dart';
 import '../models/hospital_model.dart';
 
 class HospitalCard extends StatelessWidget {
@@ -27,13 +27,11 @@ class HospitalCard extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+
             children: [
-              const Expanded(
-                flex: 1,
-                child: Icon(
-                  Icons.local_hospital_outlined,
-                ),
-              ),
+                Container(
+                    padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                    child: NumberCircle(congestion: hospital.congestion)),
               Expanded(
                 flex: 7,
                 child: Column(
