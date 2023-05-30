@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,6 +12,8 @@ class MyGoogleMap extends StatefulWidget {
 }
 
 class _MyGoogleMapState extends State<MyGoogleMap> {
+  // GoogleMapController :
+  // GoogleMap widget과 지도 서비스 사이의 다리 역할을 함.
   late GoogleMapController _controller;
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
           return GoogleMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
-              zoom: 12,
+              zoom: 14.3,
             ),
+            // 지도에 파란 점으로 사용자의 현재 위치 표시
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
             onMapCreated: (controller) {
               setState(() {
                 _controller = controller;
@@ -31,7 +36,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             },
           );
         } else {
-          return const Center(child: Text("Find User Position..."));
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

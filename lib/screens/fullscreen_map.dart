@@ -27,9 +27,7 @@ class FullscreenMap extends StatelessWidget {
             }
           } else {
             return const Center(
-              child: Text(
-                "Loading...",
-              ),
+              child: CircularProgressIndicator(),
             );
           }
         },

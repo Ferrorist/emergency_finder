@@ -16,12 +16,20 @@ class SearchDetailScreen extends StatefulWidget {
 class _SearchDetailScreenState extends State<SearchDetailScreen> {
   List<HospitalModel> HospitalInstances = [];
   final TextEditingController _textEditingController = TextEditingController();
-  final HospitalModel _temphospitalModel =
-      HospitalModel(name: "이수성 치과", address: "대구", department: ["치과"]);
+  final HospitalModel _temphospitalModel1 = HospitalModel(
+      name: "칠곡경북대학교병원",
+      address: "대구광역시 북구 호국로 807, 칠곡경북대학교병원",
+      department: ["치과"]);
+  final HospitalModel _temphospitalModel2 = HospitalModel(
+      name: "대구가톨릭대학교칠곡가톨릭병원",
+      address: "대구광역시 북구 칠곡중앙대로 440",
+      department: ["치과"]);
   @override
   void initState() {
     super.initState();
     _textEditingController.text = widget.inputText;
+    HospitalInstances.add(_temphospitalModel1);
+    HospitalInstances.add(_temphospitalModel2);
   }
 
   @override
@@ -63,8 +71,8 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
             Container(
               child: Column(
                 children: [
-                  HospitalCard(hospital: _temphospitalModel),
-                  HospitalCard(hospital: _temphospitalModel),
+                  HospitalCard(hospital: _temphospitalModel1),
+                  HospitalCard(hospital: _temphospitalModel2),
                 ],
               ),
             ),
