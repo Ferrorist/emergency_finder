@@ -1,3 +1,4 @@
+import 'package:emergency_finder/screens/details.dart';
 import 'package:flutter/material.dart';
 import 'congestion_circle.dart';
 import '../models/hospital_model.dart';
@@ -10,11 +11,22 @@ class HospitalCard extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/details');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => details(
+                latitude: hospital.latitude,
+                longitude: hospital.longitude,
+                phonenumber: hospital.phonenumber,
+                name: hospital.name,
+                address: hospital.address,
+                department: hospital.department,
+                congestion: hospital.congestion,
+                major: hospital.major,
+                fromtodistance: hospital.fromtodistance))
+          );
         },
         child: Container(
           margin: const EdgeInsets.symmetric(
-            horizontal: 5,
             vertical: 10,
           ),
           padding: const EdgeInsets.symmetric(
@@ -23,15 +35,21 @@ class HospitalCard extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 1.8,
+                offset: const Offset(4, 4),
+              )
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-
             children: [
-                Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                    child: NumberCircle(congestion: hospital.congestion)),
+              Container(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                  child: NumberCircle(congestion: hospital.congestion)),
               Expanded(
                 flex: 7,
                 child: Column(
@@ -42,12 +60,14 @@ class HospitalCard extends StatelessWidget {
                       children: [
                         Text(
                           hospital.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
                         ),
                         Text(
                           hospital.major ?? '당직 정보 없습니다.',
-
                         ),
-
                       ],
                     ),
                     const SizedBox(
@@ -58,12 +78,14 @@ class HospitalCard extends StatelessWidget {
                       children: [
                         Text(
                           hospital.address,
+                          style: TextStyle(
+                            color: Colors.grey.withOpacity(0.7),
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
-                          hospital.fromtodistance!.toString()+'km' ?? '계산중입니다.',
-
+                          '${hospital.fromtodistance!}km' ?? '계산중입니다.',
                         ),
-
                       ],
                     ),
                   ],
