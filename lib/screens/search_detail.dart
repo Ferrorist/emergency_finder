@@ -17,11 +17,29 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
   List<HospitalModel> HospitalInstances = [];
   final TextEditingController _textEditingController = TextEditingController();
   final HospitalModel _temphospitalModel1 = HospitalModel(
-      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 100);
+    name: "이수성 치과",
+    address: "대구",
+    department: ["치과"],
+    congestion: 100,
+    major: '안과',
+    fromtodistance: 2.4,
+  );
   final HospitalModel _temphospitalModel2 = HospitalModel(
-      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 29);
+    name: "이수성 치과",
+    address: "대구",
+    department: ["치과"],
+    congestion: 29,
+    major: '기계과',
+    fromtodistance: 7.4,
+  );
   final HospitalModel _temphospitalModel3 = HospitalModel(
-      name: "이수성 치과", address: "대구", department: ["치과"], congestion: 48);
+    name: "이수성 치과",
+    address: "대구",
+    department: ["치과"],
+    congestion: 48,
+    major: '연애나할과',
+    fromtodistance: 4.4,
+  );
   @override
   void initState() {
     super.initState();
