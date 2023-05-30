@@ -1,3 +1,4 @@
+import 'package:emergency_finder/screens/details.dart';
 import 'package:flutter/material.dart';
 import 'congestion_circle.dart';
 import '../models/hospital_model.dart';
@@ -10,7 +11,19 @@ class HospitalCard extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/details');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => details(
+                latitude: hospital.latitude,
+                longitude: hospital.longitude,
+                phonenumber: hospital.phonenumber,
+                name: hospital.name,
+                address: hospital.address,
+                department: hospital.department,
+                congestion: hospital.congestion,
+                major: hospital.major,
+                fromtodistance: hospital.fromtodistance))
+          );
         },
         child: Container(
           margin: const EdgeInsets.symmetric(

@@ -23,6 +23,9 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
     congestion: 100,
     major: '안과',
     fromtodistance: 2.4,
+    latitude: 37.7749, // 예시 위도
+    longitude: -122.4194, // 예시 경도
+    phonenumber: '01012345678',
   );
   final HospitalModel _temphospitalModel2 = HospitalModel(
     name: "이수성 치과",
@@ -31,6 +34,9 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
     congestion: 29,
     major: '기계과',
     fromtodistance: 7.4,
+    latitude: 37.7749, // 예시 위도
+    longitude: -122.4194, // 예시 경도
+    phonenumber: '01011111111',
   );
   final HospitalModel _temphospitalModel3 = HospitalModel(
     name: "이수성 치과",
@@ -39,6 +45,9 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
     congestion: 48,
     major: '연애나할과',
     fromtodistance: 4.4,
+    latitude: 37.7749, // 예시 위도
+    longitude: -122.4194, // 예시 경도
+    phonenumber: '119',
   );
   @override
   void initState() {
@@ -147,14 +156,3 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
   }
 }
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Text('details'),
-    );
-  }
-}
