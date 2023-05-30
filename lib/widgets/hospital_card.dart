@@ -37,14 +37,34 @@ class HospitalCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      hospital.name,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          hospital.name,
+                        ),
+                        Text(
+                          hospital.major ?? '당직 정보 없습니다.',
+
+                        ),
+
+                      ],
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      hospital.address,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          hospital.address,
+                        ),
+                        Text(
+                          hospital.fromtodistance!.toString()+'km' ?? '계산중입니다.',
+
+                        ),
+
+                      ],
                     ),
                   ],
                 ),
