@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class GPSService {
@@ -39,5 +40,13 @@ class GPSService {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     return position;
+  }
+
+  // GPS 위치 좌표
+  static Future<LatLng> getUserLatLng() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    LatLng userCoordinate = LatLng(position.latitude, position.longitude);
+    return userCoordinate;
   }
 }
