@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_naver_map/flutter_naver_map.dart';
 import '../screens/find_emergency.dart';
 import '../screens/permission_screen.dart';
-import '../screens/details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
