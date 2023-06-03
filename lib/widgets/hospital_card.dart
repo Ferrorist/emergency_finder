@@ -35,7 +35,7 @@ class HospitalCard extends StatelessWidget {
                   department: hospital.department,
                   congestion: hospital.congestion,
                   major: hospital.major,
-                  fromToDistance: hospital.fromtodistance))
+                  fromToDistance:  hospital.fromtodistance))
             );
           },
           child: Container(

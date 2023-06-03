@@ -66,7 +66,10 @@ class Details extends StatelessWidget {
               maxChildSize: 0.8,
               builder: (context, scrollController) {
                 return Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12, width: 3),
                     color: Colors.white,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16.0),
