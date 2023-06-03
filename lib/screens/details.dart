@@ -44,7 +44,11 @@ class Details extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('상세페이지'),
+          title: Row(
+            children: [
+              Text('$name'),
+            ],
+          ),
         ),
         body: Stack(
           children: [
@@ -61,13 +65,13 @@ class Details extends StatelessWidget {
               },
             ),
             DraggableScrollableSheet(
-              initialChildSize: 0.5,
+              initialChildSize: 0.3,
               minChildSize: 0.2,
-              maxChildSize: 0.8,
+              maxChildSize: 0.4,
               builder: (context, scrollController) {
                 return Container(
                   margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black12, width: 3),
                     color: Colors.white,
@@ -111,14 +115,39 @@ class Details extends StatelessWidget {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              Text(
-                                                '${department.join(', ')} ',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(fontSize: 13),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.local_hospital,),
+                                                  Text(' '),
+                                                  Text(
+                                                    '${department.join(', ')}',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 13),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                '$phoneNumber',
-                                                textAlign: TextAlign.center,
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.call,),
+                                                  Text(' '),
+                                                  Text(
+                                                    '$phoneNumber',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.accessibility),
+                                                  Text(' '),
+                                                  Text(
+                                                    '$congestion',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  Text(
+                                                    '%',
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
@@ -135,15 +164,18 @@ class Details extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      child: IconButton(
-                                        icon: const Icon(Icons.phone),
-                                        iconSize: 70,
+                                      child:ElevatedButton.icon(
+
                                         onPressed: () {
-                                          launchPhoneApp(phoneNumber);
+                                        launchPhoneApp(phoneNumber);
                                         },
-                                      ),
+                                        icon: Icon(Icons.call, size: 20),
+                                        label: Text('$phoneNumber',),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.green)
+                                      )
                                     ),
-                                    const Text('혼잡 확률은 108% 입니다.'),
+
                                   ],
                                 ),
                               ),
