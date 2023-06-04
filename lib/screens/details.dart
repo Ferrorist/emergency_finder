@@ -2,85 +2,194 @@ import 'package:flutter/material.dart';
 import '../services/gps_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/detail_map.dart';
+import 'find_emergency.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class details extends StatelessWidget {
-  const details({Key? key,required this.latitude,
-  required this.longitude,
-  required this.name,
-  required this.address,
-  required this.department,
-  required this.phonenumber,
-  required this.congestion,
-  required this.major,
-  required this.fromtodistance,
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class Details extends StatelessWidget {
+  const Details({
+    Key? key,
+    required this.latitude,
+    required this.longitude,
+    required this.name,
+    required this.address,
+    required this.department,
+    required this.phoneNumber,
+    required this.congestion,
+    required this.major,
+    required this.fromToDistance,
   }) : super(key: key);
 
   final double latitude;
   final double longitude;
   final String name;
   final String address;
-  final String phonenumber;
+  final String phoneNumber;
   final List<String> department;
   final int congestion;
   final String? major;
-  final double? fromtodistance;
+  final double? fromToDistance;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('상세페이지'),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            MapScreen(latitude: latitude,longitude: longitude,),
-            Container(
-              child: SizedBox(
-                width: 300,
-                height: 100,
-                child: Row(
-                  children: [
-                    Image.network(
-                        'https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F408%2F2022%2F08%2F19%2F0000164664_013_20220819172101997.jpg&type=a340'),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                         Text('$name', textAlign: TextAlign.center),
-                          Text('전화는 여기예요!', textAlign: TextAlign.center),
-                          Text('$phonenumber', textAlign: TextAlign.center),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context); // 이전 화면으로 돌아가기
+        return true; // true를 반환하면 뒤로가기 이벤트가 처리됩니다.
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text('$name'),
+            ],
+          ),
+        ),
+        body: Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(latitude, longitude),
+                zoom: 15,
               ),
+              markers: {
+                Marker(
+                  markerId: MarkerId('location'),
+                  position: LatLng(latitude, longitude),
+                ),
+              },
             ),
-            SizedBox(
-              width: 350,
-              height: 100,
-              child: Row(
-                children: [
-                  Container(
-                    child: IconButton(
-                      icon: const Icon(Icons.phone),
-                      iconSize: 70,
-                      onPressed: () {
-                        launchPhoneApp(phonenumber);
-                      },
+            DraggableScrollableSheet(
+              initialChildSize: 0.3,
+              minChildSize: 0.2,
+              maxChildSize: 0.4,
+              builder: (context, scrollController) {
+                return Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12, width: 3),
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(16.0),
+                      topRight: Radius.circular(16.0),
                     ),
                   ),
-                  const Text('혼잡 확률은 108% 입니다.')
-                ],
-              ),
-            )
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Column(
+                      children: <Widget>[
+                        SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: SizedBox(
+                                  width: 300,
+                                  height: 100,
+                                  child: Center(
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: <Widget>[
+                                        Image.network(
+                                          'https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F408%2F2022%2F08%2F19%2F0000164664_013_20220819172101997.jpg&type=a340',
+                                        ),
+                                        Container(
+                                          margin:
+                                          EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '$name',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.local_hospital,),
+                                                  Text(' '),
+                                                  Text(
+                                                    '${department.join(', ')}',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 13),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.call,),
+                                                  Text(' '),
+                                                  Text(
+                                                    '$phoneNumber',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.accessibility),
+                                                  Text(' '),
+                                                  Text(
+                                                    '$congestion',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  Text(
+                                                    '%',
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 350,
+                                height: 100,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child:ElevatedButton.icon(
 
-          ]
+                                        onPressed: () {
+                                        launchPhoneApp(phoneNumber);
+                                        },
+                                        icon: Icon(Icons.call, size: 20),
+                                        label: Text('$phoneNumber',),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.green)
+                                      )
+                                    ),
 
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-
+          ],
+        ),
       ),
     );
   }

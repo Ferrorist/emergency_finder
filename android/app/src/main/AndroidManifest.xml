@@ -15,7 +15,7 @@
         </intent>
     </queries>
    <application
-        android:label="emergency_finder"
+        android:label="응급실 지킴이"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
