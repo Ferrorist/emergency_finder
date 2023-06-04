@@ -23,6 +23,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCjbs-h0k42UuAgxGP2kjNbshYQjH6uKOg"
         />
+       <meta-data
+           android:name="com.naver.maps.map.CLIENT_ID"
+           android:value="wxgjpwwj0u" />
 
         <activity
             android:name=".MainActivity"
@@ -46,6 +49,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+       <activity
+           android:name=".UserMapActivity"
+           android:theme="@style/Theme.AppCompat"
+           />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

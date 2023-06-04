@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../services/gps_service.dart';
 import '../widgets/googlemap_widget.dart';
+import '../widgets/userMap_widget.dart';
 
 class FullscreenMap extends StatelessWidget {
   FullscreenMap({super.key});
@@ -17,9 +18,8 @@ class FullscreenMap extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == true) {
-              return MyGoogleMap(
-                position: user_position,
-                isUserposition: true,
+              return const userMapWidget(
+                ViewType: "UserNaverMap",
               );
             } else {
               return const Center(
