@@ -1,4 +1,4 @@
-import 'package:emergency_finder/widgets/googlemap_widget.dart';
+import '../widgets/googlemap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 

@@ -18,6 +18,11 @@ allprojects {
         maven{
             url 'https://naver.jfrog.io/artifactory/maven/'
         }
+        configurations.all {
+            resolutionStrategy {
+                force "com.google.android.gms:play-services-location:20.0.0"
+            }
+        }
     }
 }
 
