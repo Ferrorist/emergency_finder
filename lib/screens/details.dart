@@ -81,6 +81,7 @@ class Details extends StatelessWidget {
                     ),
                   ),
                   child: SingleChildScrollView(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     controller: scrollController,
                     child: Column(
                       children: <Widget>[
@@ -88,7 +89,7 @@ class Details extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                // margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: SizedBox(
                                   width: 300,
                                   height: 100,

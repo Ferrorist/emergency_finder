@@ -1,61 +1,63 @@
+
+import 'package:flutter/foundation.dart';
+// web
+// import 'dart:html';
 import 'package:flutter/material.dart';
 import '../screens/fullscreen_map.dart';
 import '../widgets/hospital_card.dart';
 import '../models/hospital_model.dart';
+import 'package:geolocator/geolocator.dart';
+// android
 import 'dart:io';
+
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SearchDetailScreen extends StatefulWidget {
   String inputText;
 
-  SearchDetailScreen({super.key, required this.inputText});
+  SearchDetailScreen({Key? key, required this.inputText}) : super(key: key);
 
   @override
   State<SearchDetailScreen> createState() => _SearchDetailScreenState();
 }
 
 class _SearchDetailScreenState extends State<SearchDetailScreen> {
-  List<HospitalModel> HospitalInstances = [];
+  List<HospitalModel> hospitalInstances = [];
+
   final TextEditingController _textEditingController = TextEditingController();
-  final HospitalModel _temphospitalModel1 = HospitalModel(
-    name: "이수성 치과",
-    address: "대구",
-    department: ["치과"],
-    congestion: 100,
-    major: '안과',
-    fromtodistance: 2.4,
-    latitude: 37.7749, // 예시 위도
-    longitude: -122.4194, // 예시 경도
-    phonenumber: '01012345678',
-  );
-  final HospitalModel _temphospitalModel2 = HospitalModel(
-    name: "이수성 치과",
-    address: "대구",
-    department: ["치과"],
-    congestion: 29,
-    major: '기계과',
-    fromtodistance: 7.4,
-    latitude: 37.7749, // 예시 위도
-    longitude: -122.4194, // 예시 경도
-    phonenumber: '01011111111',
-  );
-  final HospitalModel _temphospitalModel3 = HospitalModel(
-    name: "이수성 치과",
-    address: "대구",
-    department: ["치과"],
-    congestion: 48,
-    major: '연애나할과',
-    fromtodistance: 4.4,
-    latitude: 37.7749, // 예시 위도
-    longitude: -122.4194, // 예시 경도
-    phonenumber: '119',
-  );
+
   @override
   void initState() {
     super.initState();
     _textEditingController.text = widget.inputText;
-    HospitalInstances.add(_temphospitalModel1);
-    HospitalInstances.add(_temphospitalModel2);
+    fetchHospitalData();
   }
+
+  Future<void> fetchHospitalData() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      String apiUrl =
+          'http://127.0.0.1:8000/api/v1/radius_finder/${position.longitude}/${position.latitude}';
+      http.Response response = await http.get(Uri.parse(apiUrl));
+      List<dynamic> responseData = jsonDecode(utf8.decode(response.bodyBytes ?? []));
+
+      List<HospitalModel> hospitals = await Future.wait(responseData.map((data) async {
+        return HospitalModel.fromJsonWithLocation(data);
+      }).toList());
+
+      setState(() {
+        hospitalInstances.addAll(hospitals);
+      });
+    } catch (e) {
+      print('Error fetching hospital data: $e');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +98,16 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
             Container(
               child: Column(
                 children: [
-                  HospitalCard(hospital: _temphospitalModel1),
-                  HospitalCard(hospital: _temphospitalModel2),
-                  HospitalCard(hospital: _temphospitalModel3),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: hospitalInstances.length,
+                    itemBuilder: (context, index) {
+                      HospitalModel hospital = hospitalInstances[index];
+                      print(hospital);
+                      return HospitalCard(hospital: hospital);
+                    },
+                  ),
+
                 ],
               ),
             ),
@@ -106,6 +115,61 @@ class _SearchDetailScreenState extends State<SearchDetailScreen> {
         ),
       ),
 
+
+      //웹 작동
+      // floatingActionButton: (() {
+      //   if (kIsWeb) {
+      //     return Stack(
+      //       children: [
+      //         Positioned(
+      //           bottom: 13,
+      //           right: 16,
+      //           child: FloatingActionButton(
+      //             onPressed: () {
+      //               Navigator.pop(context);
+      //             },
+      //             child: const Icon(Icons.arrow_back),
+      //           ),
+      //         ),
+      //         Positioned(
+      //           bottom: 90,
+      //           right: 16,
+      //           child: FloatingActionButton(
+      //             heroTag: 'map',
+      //             onPressed: () {
+      //               Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                   builder: ((context) => FullscreenMap()),
+      //                 ),
+      //               );
+      //             },
+      //             child: const Icon(Icons.map_outlined),
+      //           ),
+      //         ),
+      //       ],
+      //     );
+      //   } else {
+      //     return FloatingActionButton(
+      //       heroTag: 'map',
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: ((context) => FullscreenMap()),
+      //           ),
+      //         );
+      //       },
+      //       child: const Icon(Icons.map_outlined),
+      //     );
+      //   }
+      // })(),
+      //
+
+
+
+
+      // 안드로이드만 작동가능
       // 안드로이드 기기가 아닌 경우 뒤로가기 버튼 활성화
       floatingActionButton: Platform.isAndroid
           ? FloatingActionButton(

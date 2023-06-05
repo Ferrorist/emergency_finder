@@ -7,7 +7,6 @@ import 'package:swipe_to/swipe_to.dart';
 
 class HospitalCard extends StatelessWidget {
   const HospitalCard({Key? key, required this.hospital}) : super(key: key);
-
   final HospitalModel hospital;
   @override
   Widget build(BuildContext context) {
