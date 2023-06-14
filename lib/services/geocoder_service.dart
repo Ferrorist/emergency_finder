@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class MyGeocoder {
+  // 주소 → 좌표로 전환
   Future<LatLng> _searchPlaces(String address) async {
     List<dynamic> places = [];
     const String apiKey = '83d2d7dcb4964d69b16ddc0a5e88abdc';

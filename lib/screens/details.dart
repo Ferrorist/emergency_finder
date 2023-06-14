@@ -5,12 +5,6 @@ import '../widgets/detail_map.dart';
 import 'find_emergency.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 class Details extends StatelessWidget {
   const Details({
     Key? key,
@@ -46,7 +40,7 @@ class Details extends StatelessWidget {
         appBar: AppBar(
           title: Row(
             children: [
-              Text('$name'),
+              Text(name),
             ],
           ),
         ),
@@ -59,7 +53,7 @@ class Details extends StatelessWidget {
               ),
               markers: {
                 Marker(
-                  markerId: MarkerId('location'),
+                  markerId: const MarkerId('location'),
                   position: LatLng(latitude, longitude),
                 ),
               },
@@ -100,51 +94,57 @@ class Details extends StatelessWidget {
                                           'https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F408%2F2022%2F08%2F19%2F0000164664_013_20220819172101997.jpg&type=a340',
                                         ),
                                         Container(
-                                          margin:
-                                          EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                          margin: const EdgeInsets.fromLTRB(
+                                              20, 0, 0, 0),
                                           alignment: Alignment.center,
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '$name',
+                                                name,
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                               Row(
                                                 children: [
-                                                  Icon(Icons.local_hospital,),
-                                                  Text(' '),
+                                                  const Icon(
+                                                    Icons.local_hospital,
+                                                  ),
+                                                  const Text(' '),
                                                   Text(
-                                                    '${department.join(', ')}',
+                                                    department.join(', '),
                                                     textAlign: TextAlign.center,
-                                                    style: TextStyle(fontSize: 13),
+                                                    style: const TextStyle(
+                                                        fontSize: 13),
                                                   ),
                                                 ],
                                               ),
                                               Row(
                                                 children: [
-                                                  Icon(Icons.call,),
-                                                  Text(' '),
+                                                  const Icon(
+                                                    Icons.call,
+                                                  ),
+                                                  const Text(' '),
                                                   Text(
-                                                    '$phoneNumber',
+                                                    phoneNumber,
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ],
                                               ),
                                               Row(
                                                 children: [
-                                                  Icon(Icons.accessibility),
-                                                  Text(' '),
+                                                  const Icon(
+                                                      Icons.accessibility),
+                                                  const Text(' '),
                                                   Text(
                                                     '$congestion',
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     '%',
                                                   ),
                                                 ],
@@ -164,18 +164,18 @@ class Details extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      child:ElevatedButton.icon(
-
-                                        onPressed: () {
-                                        launchPhoneApp(phoneNumber);
-                                        },
-                                        icon: Icon(Icons.call, size: 20),
-                                        label: Text('$phoneNumber',),
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.green)
-                                      )
-                                    ),
-
+                                        child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              launchPhoneApp(phoneNumber);
+                                            },
+                                            icon: const Icon(Icons.call,
+                                                size: 20),
+                                            label: Text(
+                                              phoneNumber,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.green))),
                                   ],
                                 ),
                               ),

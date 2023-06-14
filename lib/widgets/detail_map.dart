@@ -5,7 +5,7 @@ class MapScreen extends StatefulWidget {
   final double latitude;
   final double longitude;
 
-  MapScreen({required this.latitude, required this.longitude});
+  const MapScreen({super.key, required this.latitude, required this.longitude});
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -16,26 +16,26 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return SizedBox(
       width: 300,
       height: 400,
       child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(widget.latitude, widget.longitude),
-            zoom: 15,
-          ),
-          onMapCreated: (controller) {
-            setState(() {
-              _mapController = controller;
-            });
-          },
-          markers: {
-            Marker(
-              markerId: MarkerId('location'),
-              position: LatLng(widget.latitude, widget.longitude),
-            ),
-          },
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.latitude, widget.longitude),
+          zoom: 15,
         ),
+        onMapCreated: (controller) {
+          setState(() {
+            _mapController = controller;
+          });
+        },
+        markers: {
+          Marker(
+            markerId: const MarkerId('location'),
+            position: LatLng(widget.latitude, widget.longitude),
+          ),
+        },
+      ),
     );
   }
 }
